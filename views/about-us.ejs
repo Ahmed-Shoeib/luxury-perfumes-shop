@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Us | PerfumeHouse</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@next/dist/aos.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+  </head>
+  <body>
+    <%- include('partials/navbar') %>
+
+    <!-- Hero Section -->
+     <br><br><br>
+    <section class="hero-section py-5">
+      <div class="container">
+        <div class="row align-items-center g-5">
+          <div class="col-lg-6" data-aos="fade-right">
+            <h1 class="display-4 fw-bold mb-4">Our Story</h1>
+            <p class="lead text-muted mb-4">Discover the passion behind PerfumeHouse and our commitment to bringing you the finest fragrances from around the world.</p>
+            <p class="mb-4">Founded in 2018, PerfumeHouse began as a small boutique with a big dream: to create a haven for fragrance enthusiasts and to make luxury perfumes accessible to everyone. Today, we're proud to be one of the leading fragrance retailers, offering an extensive collection of over 500 unique scents from more than 50 premium brands.</p>
+            <div class="d-flex gap-3">
+              <a href="#mission" class="btn btn-primary">
+                <i class="fas fa-bullseye me-2"></i>Our Mission
+              </a>
+              <a href="#team" class="btn btn-outline-primary">
+                <i class="fas fa-users me-2"></i>Meet Our Team
+              </a>
+            </div>
+          </div>
+          <div class="col-lg-6" data-aos="fade-left">
+            <div class="position-relative">
+             <img 
+  src="https://media.discordapp.net/attachments/1382819949856161902/1382874500160295055/f2ae745f-4f4e-448a-b92b-b0a5711efec3.png?ex=684cbdbd&is=684b6c3d&hm=215bff2e74b6b3475add42d115ef8c6f5149912445e38bdddb31d6806550990a&=&format=webp&quality=lossless&width=589&height=750" 
+  alt="Perfume Collection" 
+  class="img-fluid rounded-3 shadow-lg" 
+  style="width: 500px; margin-left: 100px;" />
+
+              <div class="position-absolute top-0 start-0 translate-middle p-3 bg-primary text-white rounded-circle">
+                <i class="fas fa-star fa-2x"></i>
+              </div>
+              <div class="position-absolute bottom-0 end-0 translate-middle p-3 bg-light rounded-3 shadow">
+                <div class="d-flex align-items-center">
+                  <div class="flex-shrink-0">
+                    <i class="fas fa-award fa-2x text-primary"></i>
+                  </div>
+                  <div class="ms-3">
+                    <h6 class="mb-0">Award Winning</h6>
+                    <p class="small text-muted mb-0">Best Fragrance Retailer 2023</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section id="mission" class="py-5">
+      <div class="container">
+        <div class="row align-items-center g-5">
+          <div class="col-lg-6" data-aos="fade-right">
+            <img 
+  src="https://media.discordapp.net/attachments/1382819949856161902/1382877550459748533/6f8bf2ca-227b-4435-b5cb-e895cdd8375a.png?ex=684cc094&is=684b6f14&hm=0e8adaf79ab771289e3be3360bed388fb7ed583425499d762c1e253ee535c6ee&=&format=webp&quality=lossless&width=600&height=750" 
+  alt="Our Mission" 
+  class="img-fluid rounded-3 shadow"
+  style="width: 500px; margin-left: -10px;" />
+
+          </div>
+          <div class="col-lg-6" data-aos="fade-left">
+            <h2 class="display-5 fw-bold mb-4">Our Mission</h2>
+            <p class="lead text-muted mb-4">To curate and deliver exceptional fragrances that inspire confidence and create lasting memories.</p>
+            <p class="mb-4">At PerfumeHouse, we believe that a great fragrance is more than just a scent—it's a statement of individuality, a mood enhancer, and a memory maker. Our mission is to help you find that perfect scent that resonates with your personality and style.</p>
+            <div class="row g-4">
+              <div class="col-4 text-center">
+                <div class="p-3 rounded-3 bg-light">
+                  <h3 class="h2 text-primary mb-2">500+</h3>
+                  <p class="text-muted mb-0 small">Unique Fragrances</p>
+                </div>
+              </div>
+              <div class="col-4 text-center">
+                <div class="p-3 rounded-3 bg-light">
+                  <h3 class="h2 text-primary mb-2">50+</h3>
+                  <p class="text-muted mb-0 small">Premium Brands</p>
+                </div>
+              </div>
+              <div class="col-4 text-center">
+                <div class="p-3 rounded-3 bg-light">
+                  <h3 class="h2 text-primary mb-2">10k+</h3>
+                  <p class="text-muted mb-0 small">Happy Customers</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="py-5 bg-light">
+      <div class="container">
+        <h2 class="display-5 fw-bold text-center mb-5" data-aos="fade-up">Our Core Values</h2>
+        <div class="row g-4">
+          <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="card border-0 shadow-sm h-100">
+              <div class="card-body p-4 text-center">
+                <div class="icon-box mb-4">
+                  <i class="fas fa-spray-can-sparkles fa-3x text-primary"></i>
+                </div>
+                <h3 class="h4 mb-3">Quality</h3>
+                <p class="text-muted mb-0">We carefully select each fragrance to ensure it meets our high standards of quality and authenticity.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="card border-0 shadow-sm h-100">
+              <div class="card-body p-4 text-center">
+                <div class="icon-box mb-4">
+                  <i class="fas fa-heart fa-3x text-primary"></i>
+                </div>
+                <h3 class="h4 mb-3">Passion</h3>
+                <p class="text-muted mb-0">Our love for fragrances drives us to continuously explore and bring you the best scents from around the world.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+            <div class="card border-0 shadow-sm h-100">
+              <div class="card-body p-4 text-center">
+                <div class="icon-box mb-4">
+                  <i class="fas fa-handshake fa-3x text-primary"></i>
+                </div>
+                <h3 class="h4 mb-3">Integrity</h3>
+                <p class="text-muted mb-0">We believe in honest relationships with our customers, partners, and the environment.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="py-5">
+      <div class="container">
+        <h2 class="display-5 fw-bold text-center mb-5" data-aos="fade-up">Meet Our Team</h2>
+        <div class="row g-4 justify-content-center">
+          <div class="col-lg-2 col-md-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="card border-0 shadow-sm h-100">
+              <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop" class="card-img-top" alt="Team Member">
+              <div class="card-body p-4 text-center">
+                <h3 class="h5 mb-1">John Smith</h3>
+                <p class="text-muted mb-3">Founder & CEO</p>
+                <p class="small text-muted mb-3">Passionate about perfumery and luxury retail, John founded PerfumeHouse with a vision to create a haven for fragrance enthusiasts.</p>
+                <div class="social-links">
+                  <a href="#" class="btn btn-sm btn-outline-primary me-2"><i class="fab fa-linkedin"></i></a>
+                  <a href="#" class="btn btn-sm btn-outline-primary"><i class="fab fa-twitter"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="card border-0 shadow-sm h-100">
+              <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop" class="card-img-top" alt="Team Member">
+              <div class="card-body p-4 text-center">
+                <h3 class="h5 mb-1">Sarah Johnson</h3>
+                <p class="text-muted mb-3">Head Curator</p>
+                <p class="small text-muted mb-3">With a background in perfumery and luxury retail, Sarah ensures our collection remains diverse and engaging.</p>
+                <div class="social-links">
+                  <a href="#" class="btn btn-sm btn-outline-primary me-2"><i class="fab fa-linkedin"></i></a>
+                  <a href="#" class="btn btn-sm btn-outline-primary"><i class="fab fa-twitter"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-4" data-aos="fade-up" data-aos-delay="300">
+            <div class="card border-0 shadow-sm h-100">
+              <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=400&fit=crop" class="card-img-top" alt="Team Member">
+              <div class="card-body p-4 text-center">
+                <h3 class="h5 mb-1">Michael Brown</h3>
+                <p class="text-muted mb-3">Events Coordinator</p>
+                <p class="small text-muted mb-3">Michael brings perfumers and enthusiasts together through our popular fragrance workshops and scent events.</p>
+                <div class="social-links">
+                  <a href="#" class="btn btn-sm btn-outline-primary me-2"><i class="fab fa-linkedin"></i></a>
+                  <a href="#" class="btn btn-sm btn-outline-primary"><i class="fab fa-twitter"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-4" data-aos="fade-up" data-aos-delay="400">
+            <div class="card border-0 shadow-sm h-100">
+              <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop" class="card-img-top" alt="Team Member">
+              <div class="card-body p-4 text-center">
+                <h3 class="h5 mb-1">Emma Wilson</h3>
+                <p class="text-muted mb-3">Customer Experience</p>
+                <p class="small text-muted mb-3">Emma ensures every customer receives personalized attention and finds their perfect fragrance match.</p>
+                <div class="social-links">
+                  <a href="#" class="btn btn-sm btn-outline-primary me-2"><i class="fab fa-linkedin"></i></a>
+                  <a href="#" class="btn btn-sm btn-outline-primary"><i class="fab fa-twitter"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-4" data-aos="fade-up" data-aos-delay="500">
+            <div class="card border-0 shadow-sm h-100">
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop" class="card-img-top" alt="Team Member">
+              <div class="card-body p-4 text-center">
+                <h3 class="h5 mb-1">David Chen</h3>
+                <p class="text-muted mb-3">Marketing Director</p>
+                <p class="small text-muted mb-3">David leads our marketing initiatives, bringing innovative strategies to showcase our unique fragrance collection.</p>
+                <div class="social-links">
+                  <a href="#" class="btn btn-sm btn-outline-primary me-2"><i class="fab fa-linkedin"></i></a>
+                  <a href="#" class="btn btn-sm btn-outline-primary"><i class="fab fa-twitter"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="py-5 bg-light">
+      <div class="container">
+        <h2 class="display-5 fw-bold text-center mb-5" data-aos="fade-up">Our Journey</h2>
+        <div class="row g-4">
+          <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="card border-0 shadow-sm h-100">
+              <div class="card-body p-4">
+                <div class="d-flex align-items-center mb-3">
+                  <div class="flex-shrink-0">
+                    <span class="display-6 text-primary">2018</span>
+                  </div>
+                </div>
+                <p class="mb-0">PerfumeHouse was founded with a small collection of 100 perfumes</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="card border-0 shadow-sm h-100">
+              <div class="card-body p-4">
+                <div class="d-flex align-items-center mb-3">
+                  <div class="flex-shrink-0">
+                    <span class="display-6 text-primary">2019</span>
+                  </div>
+                </div>
+                <p class="mb-0">Expanded to include our first fragrance workshops and scent events</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+            <div class="card border-0 shadow-sm h-100">
+              <div class="card-body p-4">
+                <div class="d-flex align-items-center mb-3">
+                  <div class="flex-shrink-0">
+                    <span class="display-6 text-primary">2020</span>
+                  </div>
+                </div>
+                <p class="mb-0">Launched our online platform and digital fragrance community</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4" data-aos="fade-up" data-aos-delay="400">
+            <div class="card border-0 shadow-sm h-100">
+              <div class="card-body p-4">
+                <div class="d-flex align-items-center mb-3">
+                  <div class="flex-shrink-0">
+                    <span class="display-6 text-primary">2021</span>
+                  </div>
+                </div>
+                <p class="mb-0">Reached 5,000 members and hosted 50+ fragrance events</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4" data-aos="fade-up" data-aos-delay="500">
+            <div class="card border-0 shadow-sm h-100">
+              <div class="card-body p-4">
+                <div class="d-flex align-items-center mb-3">
+                  <div class="flex-shrink-0">
+                    <span class="display-6 text-primary">2022</span>
+                  </div>
+                </div>
+                <p class="mb-0">Expanded our collection to 1,000+ perfumes and opened new locations</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4" data-aos="fade-up" data-aos-delay="600">
+            <div class="card border-0 shadow-sm h-100">
+              <div class="card-body p-4">
+                <div class="d-flex align-items-center mb-3">
+                  <div class="flex-shrink-0">
+                    <span class="display-6 text-primary">2023</span>
+                  </div>
+                </div>
+                <p class="mb-0">Celebrating 5 years of excellence in fragrance curation</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <%- include('partials/footer') %>
+    <%- include('partials/auth-modals') %>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    
+    <!-- Initialize AOS -->
+    <script>
+      AOS.init({
+        duration: 800,
+        once: true
+      });
+    </script>
+  </body>
+</html> 

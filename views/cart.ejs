@@ -1,0 +1,23 @@
+<div class="card-footer bg-white border-top-0">
+  <div class="d-grid gap-2">
+    <% if (cart && cart.items && cart.items.length > 0) { %>
+      <a href="/checkout" class="btn btn-primary btn-lg" onclick="event.preventDefault(); validateCart() && (window.location.href='/checkout');">
+        <i class="fas fa-shopping-cart me-2"></i>Proceed to Checkout
+      </a>
+    <% } %>
+    <a href="/" class="btn btn-outline-secondary">
+      <i class="fas fa-arrow-left me-2"></i>Continue Shopping
+    </a>
+  </div>
+</div>
+
+<script>
+function validateCart() {
+  const cartItems = document.querySelectorAll('.cart-item');
+  if (cartItems.length === 0) {
+    alert('Your cart is empty. Please add items before proceeding to checkout.');
+    return false;
+  }
+  return true;
+}
+</script>

@@ -1,0 +1,127 @@
+<%- include('partials/header') %>
+
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-sm">
+        <div class="card-body text-center">
+          <div class="mb-4">
+            <i class="fas fa-check-circle text-success" style="font-size: 4rem;"></i>
+          </div>
+          <h2 class="card-title mb-4">Order Placed Successfully!</h2>
+          <p class="lead mb-4">Thank you for your purchase. Your order has been received and is being processed.</p>
+          
+          <div class="order-details mb-4">
+            <h5 class="mb-3">Order Details</h5>
+            <div class="table-responsive">
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <th>Order Number:</th>
+                    <td><%= order._id %></td>
+                  </tr>
+                  <tr>
+                    <th>Order Date:</th>
+                    <td><%= new Date(order.orderDate).toLocaleDateString() %></td>
+                  </tr>
+                  <tr>
+                    <th>Total Amount:</th>
+                    <td>$<%= order.totalAmount.toFixed(2) %></td>
+                  </tr>
+                  <tr>
+                    <th>Payment Method:</th>
+                    <td><%= order.paymentMethod === 'credit_card' ? 'Credit Card' : 'Cash on Delivery' %></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="shipping-details mb-4">
+            <h5 class="mb-3">Shipping Information</h5>
+            <div class="table-responsive">
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <th>Name:</th>
+                    <td><%= order.shippingAddress.fullName %></td>
+                  </tr>
+                  <tr>
+                    <th>Email:</th>
+                    <td><%= order.shippingAddress.email %></td>
+                  </tr>
+                  <tr>
+                    <th>Phone:</th>
+                    <td><%= order.shippingAddress.phone %></td>
+                  </tr>
+                  <tr>
+                    <th>Address:</th>
+                    <td>
+                      <%= order.shippingAddress.address %><br>
+                      <%= order.shippingAddress.city %>, <%= order.shippingAddress.state %> <%= order.shippingAddress.zipCode %>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="order-items mb-4">
+            <h5 class="mb-3">Order Items</h5>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Item</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% order.items.forEach(item => { %>
+                    <tr>
+                      <td><%= item.perfume.name %></td>
+                      <td><%= item.quantity %></td>
+                      <td>$<%= item.price.toFixed(2) %></td>
+                      <td>$<%= (item.price * item.quantity).toFixed(2) %></td>
+                    </tr>
+                  <% }) %>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="3" class="text-end"><strong>Subtotal:</strong></td>
+                    <td>$<%= (order.totalAmount - 10 - (order.totalAmount * 0.1)).toFixed(2) %></td>
+                  </tr>
+                  <tr>
+                    <td colspan="3" class="text-end"><strong>Shipping:</strong></td>
+                    <td>$10.00</td>
+                  </tr>
+                  <tr>
+                    <td colspan="3" class="text-end"><strong>Tax (10%):</strong></td>
+                    <td>$<%= (order.totalAmount * 0.1).toFixed(2) %></td>
+                  </tr>
+                  <tr>
+                    <td colspan="3" class="text-end"><strong>Total:</strong></td>
+                    <td><strong>$<%= order.totalAmount.toFixed(2) %></strong></td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+
+          <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+            <a href="/" class="btn btn-primary me-md-2">
+              <i class="fas fa-home me-2"></i>Continue Shopping
+            </a>
+            <a href="/profile" class="btn btn-outline-primary">
+              <i class="fas fa-user me-2"></i>View Order History
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/footer') %> 

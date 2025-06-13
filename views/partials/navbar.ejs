@@ -1,0 +1,288 @@
+<!-- Main Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center" href="/">
+      <i class="fas fa-spray-can me-2 text-primary"></i>
+      <span class="fw-bold">PerfumeHouse</span>
+    </a>
+
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item">
+          <a class="nav-link px-3" href="/">
+            <i class="fas fa-compass me-1"></i>Explore
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link px-3" href="/about-us">
+            <i class="fas fa-info-circle me-1"></i>About Us
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link px-3" href="/contact-us">
+            <i class="fas fa-envelope me-1"></i>Contact Us
+          </a>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav">
+        <% if (user) { %>
+          <li class="nav-item me-3">
+            <button class="btn btn-outline-primary position-relative" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+              <i class="fas fa-shopping-cart me-1"></i>
+              Cart
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
+                <%= user.cart.items.length %>
+              </span>
+            </button>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fas fa-user-circle me-1"></i>
+              <span><%= user.name || 'Profile' %></span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="profileDropdown">
+              <li>
+                <a class="dropdown-item py-2" href="/profile">
+                  <i class="fas fa-user me-2"></i>My Profile
+                </a>
+              </li>
+              <li><hr class="dropdown-divider"></li>
+              <li>
+                <a class="dropdown-item py-2 text-danger" href="/api/user/logout">
+                  <i class="fas fa-sign-out-alt me-2"></i>Logout
+                </a>
+              </li>
+            </ul>
+          </li>
+        <% } else { %>
+          <li class="nav-item me-2">
+            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
+              <i class="fas fa-sign-in-alt me-1"></i>Login
+            </button>
+          </li>
+          <li class="nav-item">
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signupModal">
+              <i class="fas fa-user-plus me-1"></i>Sign Up
+            </button>
+          </li>
+        <% } %>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Offcanvas Cart Panel -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+  <div class="offcanvas-header border-bottom">
+    <h5 class="offcanvas-title fw-bold" id="offcanvasRightLabel">
+      <i class="fas fa-shopping-cart me-2"></i>Your Cart
+    </h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+
+  <div class="offcanvas-body d-flex flex-column">
+    <% if (user && user.cart && user.cart.items.length > 0) { %>
+      <% let total = 0; %>
+      <% user.cart.items.forEach(item => { 
+        const product = item.product;
+        const subtotal = product.price * item.quantity;
+        total += subtotal;
+      %>
+        <div class="cart-item d-flex align-items-center border-bottom py-3" data-product-id="<%= product._id %>">
+          <img src="<%= product.image %>" alt="<%= product.name %>" class="rounded-3 me-3" style="width: 80px; height: 80px; object-fit: cover;">
+          <div class="flex-grow-1">
+            <h6 class="mb-1 fw-bold"><%= product.name %></h6>
+            <div class="d-flex align-items-center">
+              <button class="btn btn-sm btn-outline-secondary btn-decrease" data-product-id="<%= product._id %>" data-action="minus">
+                <i class="fas fa-minus"></i>
+              </button>
+              <span class="mx-3 item-quantity"><%= item.quantity %></span>
+              <button class="btn btn-sm btn-outline-secondary btn-increase" data-product-id="<%= product._id %>" data-action="plus">
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+          </div>
+          <div class="ms-3 text-end">
+            <strong class="item-price">$<%= subtotal.toFixed(2) %></strong>
+          </div>
+        </div>
+      <% }); %>
+
+      <div class="flex-grow-1"></div>
+
+      <div class="border-top pt-3">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <span class="h5 mb-0">Total:</span>
+          <span class="h5 mb-0 total-price">$<%= total.toFixed(2) %></span>
+        </div>
+        <button class="btn btn-primary w-100 py-2" id="checkout">
+          <i class="fas fa-credit-card me-2"></i>Proceed to Checkout
+        </button>
+      </div>
+    <% } else { %>
+      <div class="text-center py-5">
+        <i class="fas fa-shopping-cart fa-3x text-muted mb-3"></i>
+        <p class="text-muted mb-0">Your cart is empty</p>
+        <a href="/" class="btn btn-primary mt-3">
+          <i class="fas fa-shopping-bag me-2"></i>Start Shopping
+        </a>
+      </div>
+    <% } %>
+  </div>
+</div>
+
+<!-- Toast Container -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3" id="toastContainer"></div>
+
+<script>
+  // Toast notification function
+  function showToast({ text, type = 'info' }) {
+    const toastContainer = document.getElementById('toastContainer') || createToastContainer();
+    const toast = document.createElement('div');
+    toast.className = `toast align-items-center text-white bg-${type} border-0`;
+    toast.setAttribute('role', 'alert');
+    toast.setAttribute('aria-live', 'assertive');
+    toast.setAttribute('aria-atomic', 'true');
+    
+    toast.innerHTML = `
+      <div class="d-flex">
+        <div class="toast-body">
+          ${text}
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    `;
+    
+    toastContainer.appendChild(toast);
+    const bsToast = new bootstrap.Toast(toast);
+    bsToast.show();
+    
+    toast.addEventListener('hidden.bs.toast', () => {
+      toast.remove();
+    });
+  }
+
+  function createToastContainer() {
+    const container = document.createElement('div');
+    container.id = 'toastContainer';
+    container.className = 'toast-container position-fixed bottom-0 end-0 p-3';
+    document.body.appendChild(container);
+    return container;
+  }
+
+  document
+    .querySelectorAll(".btn-increase, .btn-decrease")
+    .forEach((button) => {
+      button.addEventListener("click", async (event) => {
+        const btn = event.currentTarget;
+        const productId = btn.getAttribute("data-product-id");
+        const action = btn.getAttribute("data-action"); // "plus" or "minus"
+        btn.disabled = true;
+
+        try {
+          const res = await fetch(`/api/user/cart/${productId}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ btn_type: action }),
+          });
+
+          if (!res.ok) {
+            throw new Error('Failed to update cart');
+          }
+
+          const data = await res.json();
+
+          if (data.error) {
+            showToast({ text: data.error, type: "danger" });
+            return;
+          }
+
+          const updatedCart = data.cart;
+
+          // Update this item if it still exists
+          const updatedItem = updatedCart.items.find(
+            (item) => item.product._id === productId || item.product === productId
+          );
+
+          const cartItemElem = document.querySelector(
+            `.d-flex.align-items-center.border-bottom.py-3[data-product-id="${productId}"]`
+          );
+
+          if (updatedItem) {
+            // Update quantity
+            cartItemElem.querySelector(".item-quantity").textContent =
+              updatedItem.quantity;
+
+            // Update subtotal
+            cartItemElem.querySelector(
+              ".item-price"
+            ).textContent = `$${updatedItem.price.toFixed(2)}`;
+          } else {
+            // Item was removed (quantity = 0)
+            if (cartItemElem) cartItemElem.remove();
+          }
+
+          // Update total price
+          document.querySelector(
+            ".total-price"
+          ).textContent = `$${updatedCart.totalPrice.toFixed(2)}`;
+
+          // If cart is empty now, show message
+          if (updatedCart.items.length === 0) {
+            document.querySelector(
+              ".offcanvas-body"
+            ).innerHTML = `<p class="text-muted">Your cart is empty.</p>`;
+          }
+
+          showToast({ text: data.message, type: "success" });
+        } catch (error) {
+          console.error("Fetch error:", error);
+          showToast({
+            text: "An error occurred while updating the cart.",
+            type: "danger",
+          });
+        } finally {
+          btn.disabled = false;
+        }
+      });
+    });
+
+  // Checkout button handler
+  document.getElementById("checkout")?.addEventListener("click", async () => {
+    try {
+      const res = await fetch("/api/order", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!res.ok) {
+        throw new Error('Failed to create order');
+      }
+
+      const data = await res.json();
+
+      if (data.error) {
+        showToast({ text: data.error, type: "danger" });
+        return;
+      }
+
+      showToast({ text: "Order placed successfully!", type: "success" });
+      location.href = "/profile";
+    } catch (error) {
+      console.error("Checkout error:", error);
+      showToast({
+        text: "An error occurred during checkout.",
+        type: "danger",
+      });
+    }
+  });
+</script>

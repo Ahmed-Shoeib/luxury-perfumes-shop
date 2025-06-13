@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PerfumeHouse - Home</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@next/dist/aos.css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css" />
+  </head>
+  <body>
+    <%- include('partials/navbar') %>
+
+    <!-- Hero Section -->
+    <br /><br /><br />
+    <section class="hero-section">
+      <div class="container">
+        <div class="row align-items-center min-vh-75">
+          <div class="col-lg-6" data-aos="fade-right">
+            <h1 class="hero-title">Discover Your Signature Scent</h1>
+            <p class="hero-subtitle">
+              Explore our curated collection of premium perfumes from around the
+              world. Find the perfect fragrance that tells your story.
+            </p>
+            <div class="d-flex gap-3">
+              <a href="#featured-perfumes" class="btn btn-primary btn-lg">
+                <i class="fas fa-shopping-bag me-2"></i>Shop Now
+              </a>
+              <a href="/about-us" class="btn btn-outline-light btn-lg">
+                <i class="fas fa-info-circle me-2"></i>Learn More
+              </a>
+            </div>
+          </div>
+          <div class="col-lg-6 d-none d-lg-block" data-aos="fade-left">
+          <img src="https://media.discordapp.net/attachments/1382819949856161902/1382880260781113385/4be78ff8-5dfd-4938-b6ce-f992e7fb06b9.png?ex=684cc31a&is=684b719a&hm=7ad831382fe7f9d4f12128b88b84739561bea4dc24fc61b2c23bb88adf4f3d80&=&format=webp&quality=lossless&width=600&height=750" 
+     alt="Perfume Promo" 
+     style="width: 550px; margin-left: 120px;" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Categories -->
+    <section class="py-5 bg-light">
+      <div class="container">
+        <h2 class="section-title" data-aos="fade-up">Popular Categories</h2>
+        <div class="row g-4">
+          <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
+            <div class="card category-card h-100 border-0 shadow-sm">
+              <div class="card-body text-center p-4">
+                <i class="fas fa-spa fa-3x text-primary mb-3"></i>
+                <h5 class="card-title">Floral</h5>
+                <p class="card-text text-muted">Delicate and romantic scents</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
+            <div class="card category-card h-100 border-0 shadow-sm">
+              <div class="card-body text-center p-4">
+                <i class="fas fa-fire fa-3x text-primary mb-3"></i>
+                <h5 class="card-title">Oriental</h5>
+                <p class="card-text text-muted">Rich and exotic fragrances</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
+            <div class="card category-card h-100 border-0 shadow-sm">
+              <div class="card-body text-center p-4">
+                <i class="fas fa-tree fa-3x text-primary mb-3"></i>
+                <h5 class="card-title">Woody</h5>
+                <p class="card-text text-muted">Warm and earthy notes</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3" data-aos="fade-up" data-aos-delay="400">
+            <div class="card category-card h-100 border-0 shadow-sm">
+              <div class="card-body text-center p-4">
+                <i class="fas fa-wind fa-3x text-primary mb-3"></i>
+                <h5 class="card-title">Fresh</h5>
+                <p class="card-text text-muted">
+                  Light and invigorating scents
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3" data-aos="fade-up" data-aos-delay="500">
+            <div class="card category-card h-100 border-0 shadow-sm">
+              <div class="card-body text-center p-4">
+                <i class="fas fa-leaf fa-3x text-primary mb-3"></i>
+                <h5 class="card-title">Aromatic</h5>
+                <p class="card-text text-muted">Herbal and green fragrances</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Perfumes Section -->
+    <section class="py-5" id="featured-perfumes">
+      <div class="container">
+        <h2 class="section-title" data-aos="fade-up">Featured Collection</h2>
+
+        <!-- Search and Filter Bar -->
+        <div class="card border-0 shadow-sm mb-4" data-aos="fade-up">
+          <div class="card-body p-4">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <div class="input-group">
+                  <span class="input-group-text bg-light border-end-0">
+                    <i class="fas fa-search text-muted"></i>
+                  </span>
+                  <input
+                    type="text"
+                    class="form-control border-start-0"
+                    id="searchInput"
+                    placeholder="Search for perfumes, brands, or categories..."
+                  />
+                  <button class="btn btn-primary" type="button" id="searchBtn">
+                    <i class="fas fa-search me-2"></i>Search
+                  </button>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <select class="form-select" id="categoryFilter">
+                  <option value="all">All Categories</option>
+                  <option value="Floral">Floral</option>
+                  <option value="Oriental">Oriental</option>
+                  <option value="Woody">Woody</option>
+                  <option value="Fresh">Fresh</option>
+                  <option value="Citrus">Citrus</option>
+                  <option value="Spicy">Spicy</option>
+                  <option value="Gourmand">Gourmand</option>
+                  <option value="Aquatic">Aquatic</option>
+                  <option value="Aromatic">Aromatic</option>
+                </select>
+              </div>
+              <div class="col-md-3">
+                <button
+                  class="btn btn-outline-secondary w-100"
+                  id="clearFiltersBtn"
+                >
+                  <i class="fas fa-times me-2"></i>Clear Filters
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Perfumes Grid -->
+        <div class="row g-4" id="perfumesGrid">
+          <% perfumes.forEach((perfume, index) => { %>
+          <div
+            class="col-lg-3 col-md-4 col-sm-6 perfume-item"
+            data-aos="fade-up"
+            data-aos-delay="<%= index * 100 %>"
+          >
+            <div
+              class="card h-100 border-0 shadow-sm perfume-card"
+              data-category="<%= perfume.category.toLowerCase() %>"
+              data-title="<%= perfume.name.toLowerCase() %>"
+              data-brand="<%= perfume.brand.toLowerCase() %>"
+              data-price="<%= perfume.price %>"
+            >
+              <div class="position-relative">
+                <img
+                  src="<%= perfume.image %>"
+                  class="card-img-top"
+                  alt="<%= perfume.name %>"
+                />
+                <span class="badge bg-primary position-absolute top-0 end-0 m-3"
+                  ><%= perfume.category %></span
+                >
+              </div>
+              <div class="card-body">
+                <h5 class="card-title mb-1"><%= perfume.name %></h5>
+                <p class="text-muted small mb-2">By <%= perfume.brand %></p>
+                <div
+                  class="d-flex justify-content-between align-items-center mb-3"
+                >
+                  <span class="h5 mb-0 text-primary"
+                    >$<%= perfume.price %></span
+                  >
+                  <div class="rating">
+                    <i class="fas fa-star text-warning"></i>
+                    <i class="fas fa-star text-warning"></i>
+                    <i class="fas fa-star text-warning"></i>
+                    <i class="fas fa-star text-warning"></i>
+                    <i class="fas fa-star-half-alt text-warning"></i>
+                  </div>
+                </div>
+                <button
+                  class="btn btn-primary w-100"
+                  onclick="openPerfumeModal('<%= perfume.name %>', '<%= perfume.brand %>', '<%= perfume.category %>', '<%= perfume.price %>', '<%= perfume.image %>', '<%= perfume._id %>')"
+                >
+                  <i class="fas fa-eye me-2"></i>View Details
+                </button>
+              </div>
+            </div>
+          </div>
+          <% }) %>
+        </div>
+
+        <!-- Pagination -->
+        <nav aria-label="Perfumes Page Navigation" class="mt-5">
+          <ul class="pagination justify-content-center">
+            <% for (let i = 1; i <= totalPages; i++) { %>
+            <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+              <a class="page-link" href="/?page=<%= i %>"><%= i %></a>
+            </li>
+            <% } %>
+          </ul>
+        </nav>
+      </div>
+    </section>
+
+    <!-- Perfume Modal -->
+    <div class="modal fade" id="perfumeModal" tabindex="-1">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content border-0 shadow">
+          <div class="modal-header border-0">
+            <h5 class="modal-title fw-bold" id="modalPerfumeTitle">
+              Product Details
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="row g-4">
+              <div class="col-md-5">
+                <img
+                  id="modalPerfumeImage"
+                  src=""
+                  alt="Perfume Bottle"
+                  class="img-fluid rounded-3"
+                />
+              </div>
+              <div class="col-md-7">
+                <div class="perfume-info">
+                  <h3 id="modalTitle" class="fw-bold mb-2"></h3>
+                  <p id="modalBrand" class="text-muted mb-2"></p>
+                  <span id="modalCategory" class="badge bg-primary mb-3"></span>
+                  <h4 id="modalPrice" class="text-primary mb-4"></h4>
+
+                  <div class="quantity-selector d-flex align-items-center mb-4">
+                    <button
+                      class="btn btn-outline-secondary"
+                      onclick="updateQuantity(-1)"
+                    >
+                      <i class="fas fa-minus"></i>
+                    </button>
+                    <input
+                      type="number"
+                      id="quantity"
+                      class="form-control mx-2 text-center"
+                      value="1"
+                      min="1"
+                      max="99"
+                      style="width: 80px"
+                    />
+                    <button
+                      class="btn btn-outline-secondary"
+                      onclick="updateQuantity(1)"
+                    >
+                      <i class="fas fa-plus"></i>
+                    </button>
+                  </div>
+
+                  <div
+                    class="d-flex justify-content-between align-items-center mb-4"
+                  >
+                    <span class="h5 mb-0">Total:</span>
+                    <span
+                      id="modalTotalPrice"
+                      class="h4 text-success mb-0"
+                    ></span>
+                  </div>
+
+                  <div class="buy-options">
+                    <% if (user) { %>
+                    <button
+                      class="btn btn-primary w-100 py-2"
+                      onclick="addToCart()"
+                    >
+                      <i class="fas fa-shopping-cart me-2"></i>Add to Cart
+                    </button>
+                    <% } else { %>
+                    <button
+                      class="btn btn-primary w-100 py-2"
+                      data-bs-toggle="modal"
+                      data-bs-target="#loginModal"
+                    >
+                      <i class="fas fa-sign-in-alt me-2"></i>Login to Purchase
+                    </button>
+                    <% } %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <%- include('partials/footer') %> <%- include('partials/auth-modals') %>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+    <!-- Custom Scripts -->
+    <script>
+      // Initialize AOS
+      AOS.init({
+        duration: 800,
+        once: true,
+      });
+
+      // Wait for the DOM to be fully loaded
+      window.addEventListener("load", function () {
+        // Get all required elements
+        const searchInput = document.getElementById("searchInput");
+        const categoryFilter = document.getElementById("categoryFilter");
+        const perfumesGrid = document.getElementById("perfumesGrid");
+        const clearFiltersBtn = document.getElementById("clearFiltersBtn");
+
+        // Only proceed if we have all required elements
+        if (
+          !searchInput ||
+          !categoryFilter ||
+          !perfumesGrid ||
+          !clearFiltersBtn
+        ) {
+          console.error(
+            "Some required elements were not found. Please check the page structure."
+          );
+          return;
+        }
+
+        function filterPerfumes() {
+          const searchTerm = searchInput.value.toLowerCase().trim();
+          const selectedCategory = categoryFilter.value.toLowerCase();
+          const perfumeItems = document.querySelectorAll(".perfume-item");
+
+          let visibleCount = 0;
+
+          perfumeItems.forEach((item) => {
+            const perfumeCard = item.querySelector(".perfume-card");
+            const title = perfumeCard.dataset.title;
+            const brand = perfumeCard.dataset.brand;
+            const category = perfumeCard.dataset.category;
+
+            const matchesSearch =
+              searchTerm === "" ||
+              title.includes(searchTerm) ||
+              brand.includes(searchTerm) ||
+              category.includes(searchTerm);
+
+            const matchesCategory =
+              selectedCategory === "all" ||
+              category === selectedCategory;
+
+            if (matchesSearch && matchesCategory) {
+              item.style.display = "block";
+              visibleCount++;
+            } else {
+              item.style.display = "none";
+            }
+          });
+
+          // Show/hide the "no results" message
+          const noResultsMessage = document.getElementById("noResultsMessage");
+          if (noResultsMessage) {
+            noResultsMessage.style.display = visibleCount === 0 ? "block" : "none";
+          }
+        }
+
+        // Add event listeners
+        searchInput.addEventListener("input", filterPerfumes);
+        categoryFilter.addEventListener("change", filterPerfumes);
+        clearFiltersBtn.addEventListener("click", function () {
+          searchInput.value = "";
+          categoryFilter.value = "all";
+          filterPerfumes();
+        });
+
+        // Add search button click handler
+        document.getElementById("searchBtn").addEventListener("click", filterPerfumes);
+
+        // Add enter key handler for search input
+        searchInput.addEventListener("keypress", function(e) {
+          if (e.key === "Enter") {
+            filterPerfumes();
+          }
+        });
+      });
+
+      function scrollToPerfumes() {
+        document
+          .getElementById("featured-perfumes")
+          .scrollIntoView({ behavior: "smooth" });
+      }
+
+      function openPerfumeModal(name, brand, category, price, image, id) {
+        const modal = document.getElementById("perfumeModal");
+        modal.setAttribute("data-id", id);
+        document.getElementById("modalTitle").textContent = name;
+        document.getElementById("modalBrand").textContent = "By " + brand;
+        document.getElementById("modalCategory").textContent = category;
+        document.getElementById("modalPrice").textContent = "$" + price;
+        document.getElementById("modalPerfumeImage").src = image;
+        document.getElementById("quantity").value = 1;
+        updateTotalPrice(price);
+
+        const modalInstance = new bootstrap.Modal(modal);
+        modalInstance.show();
+      }
+
+      function updateQuantity(change) {
+        const quantityInput = document.getElementById("quantity");
+        const newValue = parseInt(quantityInput.value) + change;
+        if (newValue >= 1 && newValue <= 99) {
+          quantityInput.value = newValue;
+          const price = parseFloat(
+            document.getElementById("modalPrice").textContent.replace("$", "")
+          );
+          updateTotalPrice(price);
+        }
+      }
+
+      function updateTotalPrice(price) {
+        const quantity = parseInt(document.getElementById("quantity").value);
+        const total = (price * quantity).toFixed(2);
+        document.getElementById("modalTotalPrice").textContent = "$" + total;
+      }
+
+      function addToCart() {
+        const perfumeId = document
+          .querySelector("#perfumeModal")
+          .getAttribute("data-id");
+        const quantity = document.getElementById("quantity").value;
+
+        fetch("/api/user/cart", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            productId: perfumeId,
+            quantity: parseInt(quantity),
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.error) {
+              alert("Error adding to cart: " + data.error);
+            } else {
+              alert(data.message || "Added to cart successfully!");
+              const modal = bootstrap.Modal.getInstance(
+                document.getElementById("perfumeModal")
+              );
+              modal.hide();
+              // Optionally refresh the page to update cart count
+              location.reload();
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            alert("Error adding to cart. Please try again.");
+          });
+      }
+    </script>
+  </body>
+</html>

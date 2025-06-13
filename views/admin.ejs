@@ -1,0 +1,1443 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BookHouse - Admin Panel</title>
+
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/main.css" />
+
+    <style>
+      :root {
+        --primary-color: #4e73df;
+        --secondary-color: #224abe;
+        --success-color: #1cc88a;
+        --info-color: #36b9cc;
+        --warning-color: #f6c23e;
+        --danger-color: #e74a3b;
+        --light-color: #f8f9fc;
+        --dark-color: #5a5c69;
+      }
+
+      body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #f8f9fc;
+      }
+
+      .sidebar {
+        min-height: 100vh;
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        box-shadow: 0 0.15rem 1.75rem 0 rgba(33, 40, 50, 0.15);
+        position: fixed;
+        width: 250px;
+        z-index: 1000;
+        transition: all 0.3s ease;
+      }
+
+      .sidebar.collapsed {
+        width: 70px;
+      }
+
+      .sidebar.collapsed .nav-link span {
+        display: none;
+      }
+
+      .sidebar.collapsed .sidebar-header span {
+        display: none;
+      }
+
+      .sidebar-toggle {
+        position: absolute;
+        right: -15px;
+        top: 20px;
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        z-index: 1001;
+      }
+
+      .sidebar-toggle:hover {
+        background: var(--secondary-color);
+      }
+
+      .sidebar-header {
+        padding: 1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        margin-bottom: 1rem;
+      }
+
+      .nav-link {
+        color: rgba(255, 255, 255, 0.8) !important;
+        padding: 0.8rem 1rem;
+        margin: 0.2rem 0;
+        border-radius: 0.35rem;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        white-space: nowrap;
+      }
+
+      .nav-link i {
+        width: 1.5rem;
+        text-align: center;
+        margin-right: 0.5rem;
+        font-size: 1.1rem;
+      }
+
+      .nav-link:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: #fff !important;
+        transform: translateX(5px);
+      }
+
+      .active-page {
+        background-color: rgba(255, 255, 255, 0.2) !important;
+        color: #fff !important;
+        font-weight: 500;
+      }
+
+      main {
+        margin-left: 250px;
+        padding: 1.5rem;
+        transition: all 0.3s ease;
+      }
+
+      main.expanded {
+        margin-left: 70px;
+      }
+
+      .card {
+        border: none;
+        box-shadow: 0 0.15rem 1.75rem 0 rgba(33, 40, 50, 0.15);
+        margin-bottom: 1.5rem;
+        border-radius: 0.5rem;
+      }
+
+      .card-header {
+        background-color: #fff;
+        border-bottom: 1px solid #e3e6f0;
+        padding: 1rem 1.25rem;
+      }
+
+      .border-left-primary {
+        border-left: 0.25rem solid var(--primary-color) !important;
+      }
+
+      .border-left-success {
+        border-left: 0.25rem solid var(--success-color) !important;
+      }
+
+      .border-left-info {
+        border-left: 0.25rem solid var(--info-color) !important;
+      }
+
+      .table {
+        margin-bottom: 0;
+      }
+
+      .table th {
+        background-color: #f8f9fc;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        letter-spacing: 0.05em;
+      }
+
+      .btn {
+        border-radius: 0.35rem;
+        padding: 0.375rem 0.75rem;
+        font-weight: 500;
+      }
+
+      .btn-sm {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.75rem;
+      }
+
+      .modal-content {
+        border: none;
+        border-radius: 0.5rem;
+        box-shadow: 0 0.15rem 1.75rem 0 rgba(33, 40, 50, 0.15);
+      }
+
+      .modal-header {
+        background-color: #f8f9fc;
+        border-bottom: 1px solid #e3e6f0;
+      }
+
+      .form-control, .form-select {
+        border-radius: 0.35rem;
+        padding: 0.375rem 0.75rem;
+        border: 1px solid #d1d3e2;
+      }
+
+      .form-control:focus, .form-select:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
+      }
+
+      .badge {
+        padding: 0.5em 0.75em;
+        font-weight: 500;
+        border-radius: 0.35rem;
+      }
+
+      .page-header {
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #e3e6f0;
+      }
+
+      .stats-card {
+        transition: transform 0.2s ease;
+      }
+
+      .stats-card:hover {
+        transform: translateY(-3px);
+      }
+
+      .table-responsive {
+        border-radius: 0.5rem;
+        overflow: hidden;
+      }
+
+      .btn-toolbar {
+        margin-bottom: 1rem;
+      }
+
+      .btn-toolbar .btn {
+        margin-left: 0.5rem;
+      }
+
+      .form-label {
+        font-weight: 500;
+        color: #5a5c69;
+      }
+
+      .form-text {
+        color: #858796;
+      }
+
+      .status-select {
+        min-width: 120px;
+      }
+
+      .view-order {
+        cursor: pointer;
+      }
+
+      .table td {
+        vertical-align: middle;
+      }
+
+      .action-buttons .btn {
+        margin: 0 0.2rem;
+      }
+
+      @media (max-width: 768px) {
+        .sidebar {
+          width: 70px;
+        }
+        
+        .sidebar .nav-link span {
+          display: none;
+        }
+        
+        .sidebar .sidebar-header span {
+          display: none;
+        }
+        
+        main {
+          margin-left: 70px;
+        }
+        
+        .sidebar.expanded {
+          width: 250px;
+        }
+        
+        .sidebar.expanded .nav-link span {
+          display: inline;
+        }
+        
+        .sidebar.expanded .sidebar-header span {
+          display: inline;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div class="container-fluid">
+        <div class="row">
+          <!-- Sidebar -->
+          <div class="col-auto px-0 sidebar">
+            <button class="sidebar-toggle" id="sidebarToggle">
+              <i class="fas fa-bars"></i>
+            </button>
+            <div class="sidebar-header">
+              <span class="fs-5 text-white">Admin Panel</span>
+            </div>
+            <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start w-100 mt-3" id="menu">
+              <li class="nav-item px-0 w-100 my-2">
+                <button class="nav-link px-0 align-middle text-white w-100" onclick="showPage('dashboard')">
+                  <i class="fas fa-home"></i>
+                  <span>Dashboard</span>
+                </button>
+              </li>
+              <li class="w-100 my-2">
+                <button class="nav-link px-0 align-middle text-white w-100" onclick="showPage('users')">
+                  <i class="fas fa-users"></i>
+                  <span>Users</span>
+                </button>
+              </li>
+              <li class="w-100 my-2">
+                <button class="nav-link px-0 align-middle text-white w-100" onclick="showPage('perfumes')">
+                  <i class="fas fa-spray-can"></i>
+                  <span>Perfumes</span>
+                </button>
+              </li>
+              <li class="w-100 my-2">
+                <button class="nav-link px-0 align-middle text-white w-100" onclick="showPage('orders')">
+                  <i class="fas fa-shopping-cart"></i>
+                  <span>Orders</span>
+                </button>
+              </li>
+              <li class="w-100 my-2">
+                <a href="/api/user/logout" class="nav-link px-0 align-middle text-white w-100">
+                  <i class="fas fa-sign-out-alt"></i>
+                  <span>Logout</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Main Content -->
+          <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
+            <!-- Dashboard Page -->
+            <div id="dashboard-page" class="page-content">
+              <h1 class="h2 mb-4">Dashboard</h1>
+
+              <div class="row">
+                <div class="col-md-3 mb-4">
+                  <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                      <div class="row no-gutters align-items-center">
+                        <div class="col me-2">
+                          <div
+                            class="text-xs fw-bold text-primary text-uppercase mb-1"
+                          >
+                            Total Users
+                          </div>
+                          <div
+                            class="h5 mb-0 fw-bold text-gray-800"
+                            id="totalUsers"
+                          >
+                          <%= users.length %>
+                          </div>
+                        </div>
+                        <div class="col-auto">
+                          <i class="fas fa-users fs-2 text-gray-300"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-3 mb-4">
+                  <div class="card border-left-success shadow h-100 py-2">
+                    <div class="card-body">
+                      <div class="row no-gutters align-items-center">
+                        <div class="col me-2">
+                          <div
+                            class="text-xs fw-bold text-success text-uppercase mb-1"
+                          >
+                            Total Perfumes
+                          </div>
+                          <div
+                            class="h5 mb-0 fw-bold text-gray-800"
+                            id="totalPerfumes"
+                          >
+                            <%= perfumes.length %>
+                          </div>
+                        </div>
+                        <div class="col-auto">
+                          <i class="fas fa-spray-can fs-2 text-gray-300"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                  <div class="card border-left-info shadow h-100 py-2">
+                    <div class="card-body">
+                      <div class="row no-gutters align-items-center">
+                        <div class="col me-2">
+                          <div
+                            class="text-xs fw-bold text-info text-uppercase mb-1"
+                          >
+                            Total Orders
+                          </div>
+                          <div
+                            class="h5 mb-0 fw-bold text-gray-800"
+                            id="totalOrders"
+                          >
+                          <%= orders.length %>
+                          </div>
+                        </div>
+                        <div class="col-auto">
+                          <i
+                            class="fas fa-shopping-cart fs-2 text-gray-300"
+                          ></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Users Page -->
+            <div id="users-page" class="page-content" style="display: none">
+              <div
+                class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
+              >
+                <h1 class="h2">User Management</h1>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-primary"
+                    data-bs-toggle="modal"
+                    data-bs-target="#addUserModal"
+                  >
+                    <i class="bi bi-plus"></i> Add New User
+                  </button>
+                </div>
+              </div>
+
+              <div class="card shadow mb-4">
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table
+                      class="table table-bordered"
+                      id="usersTable"
+                      width="100%"
+                      cellspacing="0"
+                    >
+                      <thead>
+                        <tr>
+                          <th>No.</th>
+                          <th>ID</th>
+                          <th>Name</th>
+                          <th>Email</th>
+                          <th>Role</th>
+                          <th>Status</th>
+                        </tr>
+                      </thead>
+                      <tbody id="usersTableBody">
+                        <% users.forEach((user, index) => { %>
+                        <tr>
+                          <td><%= index + 1 %></td>
+                          <td>....<%= user._id.toString().slice(-5) %></td>
+                          <td><%= user.name %></td>
+                          <td><%= user.email %></td>
+                          <td>
+                            <span
+                              class="badge <%= user.role === 'admin' ? 'bg-success' : 'bg-primary' %>"
+                              ><%= user.role %></span
+                            >
+                          </td>
+                          <td>
+                            <button
+                              class="btn btn-sm btn-outline-primary me-1 edit-user"
+                              data-userId="<%= user._id %>"
+                            >
+                              <i class="fas fa-edit"></i>
+                            </button>
+                            <% if (user.role !== 'admin') { %>
+                            <button
+                              class="btn btn-sm btn-outline-danger delete-user"
+                              data-userId="<%= user._id %>"
+                            >
+                              <i class="fas fa-trash"></i>
+                            </button>
+                            <% } %>
+                          </td>
+                        </tr>
+                        <% }) %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Perfumes Page -->
+            <div id="perfumes-page" class="page-content" style="display: none">
+              <div
+                class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
+              >
+                <h1 class="h2">Perfume Management</h1>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-primary"
+                    data-bs-toggle="modal"
+                    data-bs-target="#addPerfumeModal"
+                  >
+                    <i class="bi bi-plus"></i> Add New Perfume
+                  </button>
+                </div>
+              </div>
+
+              <div class="card shadow mb-4">
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table
+                      class="table table-bordered"
+                      id="perfumesTable"
+                      width="100%"
+                      cellspacing="0"
+                    >
+                      <thead>
+                        <tr>
+                          <th>No.</th>
+                          <th>ID</th>
+                          <th>Name</th>
+                          <th>Brand</th>
+                          <th>Price</th>
+                          <th>Stock</th>
+                          <th>Category</th>
+                          <th>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody id="perfumesTableBody">
+                        <% perfumes.forEach((perfume, index) => { %>
+                        <tr>
+                          <td><%= index + 1 %></td>
+                          <td>....<%= perfume._id.toString().slice(-5) %></td>
+                          <td><%= perfume.name %></td>
+                          <td><%= perfume.brand %></td>
+                          <td>$<%= perfume.price %></td>
+                          <td><%= perfume.stock %></td>
+                          <td><%= perfume.category %></td>
+                          <td>
+                            <button
+                              class="btn btn-sm btn-outline-primary me-1 edit-perfume"
+                              data-perfumeId="<%= perfume._id %>"
+                            >
+                              <i class="fas fa-edit"></i>
+                            </button>
+
+                            <button
+                              class="btn btn-sm btn-outline-danger delete-perfume"
+                              data-perfumeId="<%= perfume._id %>"
+                            >
+                              <i class="fas fa-trash"></i>
+                            </button>
+                          </td>
+                        </tr>
+                        <% }) %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Orders Page -->
+            <div id="orders-page" class="page-content" style="display: none">
+              <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Order Management</h1>
+              </div>
+
+              <div class="card shadow mb-4">
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table table-bordered" id="ordersTable" width="100%" cellspacing="0">
+                      <thead>
+                        <tr>
+                          <th>No.</th>
+                          <th>Order ID</th>
+                          <th>Customer</th>
+                          <th>Total Amount</th>
+                          <th>Status</th>
+                          <th>Date</th>
+                          <th>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody id="ordersTableBody">
+                        <% orders.forEach((order, index) => { %>
+                        <tr>
+                          <td><%= index + 1 %></td>
+                          <td>....<%= order._id.toString().slice(-5) %></td>
+                          <td><%= order.user.name %></td>
+                          <td>$<%= order.totalAmount %></td>
+                          <td>
+                            <select class="form-select form-select-sm status-select" data-orderId="<%= order._id %>" style="width: 120px;">
+                              <option value="pending" <%= order.status === 'pending' ? 'selected' : '' %>>Pending</option>
+                              <option value="shipped" <%= order.status === 'shipped' ? 'selected' : '' %>>Shipped</option>
+                              <option value="delivered" <%= order.status === 'delivered' ? 'selected' : '' %>>Delivered</option>
+                            </select>
+                          </td>
+                          <td><%= new Date(order.createdAt).toLocaleDateString() %></td>
+                          <td>
+                            <button class="btn btn-sm btn-outline-primary me-1 view-order" data-orderId="<%= order._id %>">
+                              <i class="fas fa-eye"></i>
+                            </button>
+                          </td>
+                        </tr>
+                        <% }) %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </main>
+        </div>
+      </div>
+
+      <!-- Add User Modal -->
+      <div
+        class="modal fade"
+        id="addUserModal"
+        tabindex="-1"
+        aria-labelledby="addUserModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="addUserModalLabel">Add New User</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form id="addUserForm">
+                <div class="mb-3">
+                  <label for="userName" class="form-label">Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="userName"
+                    name="name"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="userEmail" class="form-label">Email</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="userEmail"
+                    name="email"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="userPassword" class="form-label">Password</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="userPassword"
+                    name="password"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="userRole" class="form-label">Role</label>
+                  <select
+                    class="form-select"
+                    id="userRole"
+                    name="role"
+                    required
+                  >
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                  </select>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="submit" form="addUserForm" class="btn btn-primary">
+                Add User
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add Perfume Modal -->
+      <div
+        class="modal fade"
+        id="addPerfumeModal"
+        tabindex="-1"
+        aria-labelledby="addPerfumeModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="addPerfumeModalLabel">Add New Perfume</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form
+                class="needs-validation"
+                id="addPerfumeForm"
+                enctype="multipart/form-data"
+                novalidate
+              >
+                <div class="mb-3">
+                  <label for="perfumeName" class="form-label">Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="perfumeName"
+                    name="name"
+                    required
+                    maxlength="100"
+                    minlength="1"
+                  />
+                </div>
+
+                <div class="mb-3">
+                  <label for="perfumeBrand" class="form-label">Brand</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="perfumeBrand"
+                    name="brand"
+                    maxlength="100"
+                    required
+                  />
+                </div>
+
+                <div class="mb-3">
+                  <label for="perfumePrice" class="form-label">Price</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="perfumePrice"
+                    name="price"
+                    required
+                    min="0"
+                    step="0.01"
+                  />
+                </div>
+
+                <div class="mb-3">
+                  <label for="perfumeStock" class="form-label">Stock</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="perfumeStock"
+                    name="stock"
+                    min="0"
+                    step="1"
+                    required
+                  />
+                </div>
+
+                <div class="mb-3">
+                  <label for="perfumeDescription" class="form-label"
+                    >Description</label
+                  >
+                  <textarea
+                    class="form-control"
+                    id="perfumeDescription"
+                    name="description"
+                    rows="3"
+                    maxlength="1000"
+                  ></textarea>
+                </div>
+
+                <div class="mb-3">
+                  <label for="perfumeCategory" class="form-label">Category</label>
+                  <select class="form-select" id="editPerfumeCategory" name="category" required>
+                    <option value="">Select Category</option>
+                    <option value="Eau de Parfum">Eau de Parfum</option>
+                    <option value="Eau de Toilette">Eau de Toilette</option>
+                    <option value="Eau de Cologne">Eau de Cologne</option>
+                    <option value="Perfume Oil">Perfume Oil</option>
+                    <option value="Body Mist">Body Mist</option>
+                    <option value="Gift Set">Gift Set</option>
+                    <option value="Unisex">Unisex</option>
+                    <option value="Miniature">Miniature</option>
+                  </select>
+                </div>
+
+                <div class="mb-3">
+                  <label for="perfumeGender" class="form-label">Gender</label>
+                  <select class="form-select" id="editPerfumeGender" name="gender" required>
+                    <option value="">Select Gender</option>
+                    <option value="Men">Men</option>
+                    <option value="Women">Women</option>
+                    <option value="Unisex">Unisex</option>
+                  </select>
+                </div>
+
+                <div class="mb-3">
+                  <label for="perfumeScentCategory" class="form-label">Scent Category</label>
+                  <select class="form-select" id="editPerfumeScentCategory" name="scentCategory" required>
+                    <option value="">Select Scent Category</option>
+                    <option value="Floral">Floral</option>
+                    <option value="Oriental">Oriental</option>
+                    <option value="Woody">Woody</option>
+                    <option value="Fresh">Fresh</option>
+                    <option value="Citrus">Citrus</option>
+                    <option value="Spicy">Spicy</option>
+                    <option value="Gourmand">Gourmand</option>
+                    <option value="Aquatic">Aquatic</option>
+                    <option value="Aromatic">Aromatic</option>
+                  </select>
+                </div>
+
+                <div class="mb-3">
+                  <label for="perfumeImage" class="form-label"
+                    >Perfume Image</label
+                  >
+                  <input
+                    type="file"
+                    class="form-control"
+                    id="perfumeImage"
+                    name="image"
+                    accept="image/jpeg,image/png,image/gif"
+                    required
+                  />
+                  <div class="form-text">
+                    Upload a perfume image (JPG, PNG, or GIF)
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="submit" form="addPerfumeForm" class="btn btn-primary">
+                Add Perfume
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Edit User Modal -->
+      <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="editUserModalLabel">Edit User</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+              <form id="editUserForm">
+                <input type="hidden" id="editUserId" name="userId">
+                <div class="mb-3">
+                  <label for="editUserName" class="form-label">Name</label>
+                  <input type="text" class="form-control" id="editUserName" name="name" required>
+                </div>
+                <div class="mb-3">
+                  <label for="editUserEmail" class="form-label">Email</label>
+                  <input type="email" class="form-control" id="editUserEmail" name="email" required>
+                </div>
+                <div class="mb-3">
+                  <label for="editUserRole" class="form-label">Role</label>
+                  <select class="form-select" id="editUserRole" name="role" required>
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                  </select>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" form="editUserForm" class="btn btn-primary">Save Changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Edit Perfume Modal -->
+      <div class="modal fade" id="editPerfumeModal" tabindex="-1" aria-labelledby="editPerfumeModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="editPerfumeModalLabel">Edit Perfume</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+              <form id="editPerfumeForm" enctype="multipart/form-data">
+                <input type="hidden" id="editPerfumeId" name="perfumeId">
+                <div class="mb-3">
+                  <label for="editPerfumeName" class="form-label">Name</label>
+                  <input type="text" class="form-control" id="editPerfumeName" name="name" required maxlength="100">
+                </div>
+                <div class="mb-3">
+                  <label for="editPerfumeBrand" class="form-label">Brand</label>
+                  <input type="text" class="form-control" id="editPerfumeBrand" name="brand" maxlength="100" required>
+                </div>
+                <div class="mb-3">
+                  <label for="editPerfumePrice" class="form-label">Price</label>
+                  <input type="number" class="form-control" id="editPerfumePrice" name="price" required min="0" step="0.01">
+                </div>
+                <div class="mb-3">
+                  <label for="editPerfumeStock" class="form-label">Stock</label>
+                  <input type="number" class="form-control" id="editPerfumeStock" name="stock" min="0" step="1" required>
+                </div>
+                <div class="mb-3">
+                  <label for="editPerfumeDescription" class="form-label">Description</label>
+                  <textarea class="form-control" id="editPerfumeDescription" name="description" rows="3" maxlength="1000"></textarea>
+                </div>
+                <div class="mb-3">
+                  <label for="editPerfumeCategory" class="form-label">Category</label>
+                  <select class="form-select" id="editPerfumeCategory" name="category" required>
+                    <option value="">Select Category</option>
+                    <option value="Eau de Parfum">Eau de Parfum</option>
+                    <option value="Eau de Toilette">Eau de Toilette</option>
+                    <option value="Eau de Cologne">Eau de Cologne</option>
+                    <option value="Perfume Oil">Perfume Oil</option>
+                    <option value="Body Mist">Body Mist</option>
+                    <option value="Gift Set">Gift Set</option>
+                    <option value="Unisex">Unisex</option>
+                    <option value="Miniature">Miniature</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label for="editPerfumeGender" class="form-label">Gender</label>
+                  <select class="form-select" id="editPerfumeGender" name="gender" required>
+                    <option value="">Select Gender</option>
+                    <option value="Men">Men</option>
+                    <option value="Women">Women</option>
+                    <option value="Unisex">Unisex</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label for="editPerfumeScentCategory" class="form-label">Scent Category</label>
+                  <select class="form-select" id="editPerfumeScentCategory" name="scentCategory" required>
+                    <option value="">Select Scent Category</option>
+                    <option value="Floral">Floral</option>
+                    <option value="Oriental">Oriental</option>
+                    <option value="Woody">Woody</option>
+                    <option value="Fresh">Fresh</option>
+                    <option value="Citrus">Citrus</option>
+                    <option value="Spicy">Spicy</option>
+                    <option value="Gourmand">Gourmand</option>
+                    <option value="Aquatic">Aquatic</option>
+                    <option value="Aromatic">Aromatic</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label for="editPerfumeImage" class="form-label">Perfume Image</label>
+                  <input type="file" class="form-control" id="editPerfumeImage" name="image" accept="image/jpeg,image/png,image/gif">
+                  <div class="form-text">Upload a new image (JPG, PNG, or GIF) or leave empty to keep current image</div>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" form="editPerfumeForm" class="btn btn-primary">Save Changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Sidebar Toggle Functionality
+      document.getElementById('sidebarToggle').addEventListener('click', function() {
+        const sidebar = document.querySelector('.sidebar');
+        const main = document.querySelector('main');
+        const icon = this.querySelector('i');
+        
+        sidebar.classList.toggle('collapsed');
+        main.classList.toggle('expanded');
+        
+        if (sidebar.classList.contains('collapsed')) {
+          icon.classList.remove('fa-bars');
+          icon.classList.add('fa-chevron-right');
+        } else {
+          icon.classList.remove('fa-chevron-right');
+          icon.classList.add('fa-bars');
+        }
+      });
+
+      // Page navigation
+      function showPage(pageId) {
+        document.querySelectorAll(".page-content").forEach((page) => {
+          page.style.display = "none";
+        });
+        document.querySelectorAll("#menu .nav-link").forEach((link) => {
+          link.classList.remove("active-page");
+        });
+        document.getElementById(pageId + "-page").style.display = "block";
+        event.target.closest(".nav-link").classList.add("active-page");
+        if (pageId === "dashboard") {
+          updateDashboardStats();
+        }
+      }
+    </script>
+
+    <script>
+      document
+        .getElementById("addUserForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+          const formData = new FormData(this);
+          const userData = {
+            name: formData.get("name"),
+            email: formData.get("email"),
+            password: formData.get("password"),
+            role: formData.get("role"),
+          };
+
+          // Basic validation
+          if (!userData.name || !userData.email || !userData.password) {
+            alert("Please fill in all required fields");
+            return;
+          }
+
+          // Email validation
+          const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+          if (!emailRegex.test(userData.email)) {
+            alert("Please enter a valid email address");
+            return;
+          }
+
+          // Password validation
+          if (userData.password.length < 6) {
+            alert("Password must be at least 6 characters long");
+            return;
+          }
+
+          // Send to backend
+          const response = await fetch("/api/user/signup", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(userData),
+          });
+          const data = await response.json();
+
+          if (response.ok) {
+            alert("User added successfully");
+            location.reload(); // Refresh to show new user
+          } else {
+            alert(data.errors || "Error adding user");
+          }
+        });
+
+      document.querySelectorAll(".delete-user").forEach((button) => {
+        button.addEventListener("click", async function (e) {
+          e.preventDefault();
+          const userId = this.getAttribute("data-userId");
+          if (!confirm("Are you sure you want to delete this user?")) return;
+          const response = await fetch(`/api/user/${userId}`, {
+            headers: {
+              "Content-Type": "application/json",
+            },
+            method: "DELETE",
+          });
+          const data = await response.json();
+          if (response.ok) {
+            alert("User deleted successfully");
+            location.reload();
+          } else {
+            alert(data.errors || "Error deleting user");
+          }
+        });
+      });
+    </script>
+
+    <script>
+      document
+        .getElementById("addPerfumeForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+          const formData = new FormData(this);
+
+          // Basic validation
+          if (
+            !formData.get("name") ||
+            !formData.get("brand") ||
+            !formData.get("price") ||
+            !formData.get("stock") ||
+            !formData.get("category")
+          ) {
+            alert("Please fill in all required fields");
+            return;
+          }
+
+          // Send to backend
+          const response = await fetch("/api/perfume", {
+            method: "POST",
+            body: formData,
+          });
+          const data = await response.json();
+
+          if (response.ok) {
+            alert("Perfume added successfully");
+            location.reload();
+          } else {
+            alert(data.errors || "Error adding perfume");
+          }
+        });
+    </script>
+
+    <script>
+      document.querySelectorAll(".delete-perfume").forEach((button) => {
+        button.addEventListener("click", async function (e) {
+          e.preventDefault();
+          const perfumeId = this.getAttribute("data-perfumeId");
+          if (!confirm("Are you sure you want to delete this perfume?")) return;
+          const response = await fetch(`/api/perfume/${perfumeId}`, {
+            headers: {
+              "Content-Type": "application/json",
+            },
+            method: "DELETE",
+          });
+          const data = await response.json();
+          if (response.ok) {
+            alert("Perfume deleted successfully");
+            location.reload();
+          } else {
+            alert(data.errors || "Error deleting perfume");
+          }
+        });
+      });
+    </script>
+
+    <script>
+      // Order Management Scripts
+      document.querySelectorAll('.view-order').forEach(button => {
+        button.addEventListener('click', async function(e) {
+          e.preventDefault();
+          const orderId = this.getAttribute('data-orderId');
+          
+          try {
+            const response = await fetch(`/api/order/${orderId}`);
+            if (!response.ok) {
+              throw new Error('Failed to fetch order details');
+            }
+            
+            const data = await response.json();
+            console.log('Order Data:', data); // Debug log
+            console.log('Order Items:', data.orderItems); // Debug order items specifically
+            console.log('Items:', data.items); // Debug items as alternative
+            console.log('Products:', data.products); // Debug products as alternative
+            
+            // Create modal element
+            const modalHtml = `
+              <div class="modal fade" id="orderDetailsModal" tabindex="-1" aria-labelledby="orderDetailsModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="orderDetailsModalLabel">Order Details</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="row mb-3">
+                        <div class="col-md-6">
+                          <h6>Customer Information</h6>
+                          <p>Name: ${data.user?.name || 'N/A'}</p>
+                          <p>Email: ${data.user?.email || 'N/A'}</p>
+                        </div>
+                        <div class="col-md-6">
+                          <h6>Order Information</h6>
+                          <p>Order ID: ${data._id || 'N/A'}</p>
+                          <p>Date: ${data.createdAt ? new Date(data.createdAt).toLocaleString() : 'N/A'}</p>
+                          <p>Status: <span class="badge ${data.status === 'delivered' ? 'bg-success' : data.status === 'shipped' ? 'bg-info' : 'bg-warning'}">${data.status || 'N/A'}</span></p>
+                        </div>
+                      </div>
+                      <h6>Order Items</h6>
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th>Perfume</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Subtotal</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          ${(() => {
+                            const items = data.items || [];
+                            console.log('Using items:', items); // Debug which items array we're using
+                            
+                            if (!items || items.length === 0) {
+                              return '<tr><td colspan="4" class="text-center">No items found</td></tr>';
+                            }
+                            
+                            return items.map(item => {
+                              console.log('Processing item:', item); // Debug individual item
+                              const product = item.product;
+                              return `
+                                <tr>
+                                  <td>${product?.name || 'N/A'}</td>
+                                  <td>$${product?.price || 0}</td>
+                                  <td>${item.quantity || 0}</td>
+                                  <td>$${((product?.price || 0) * (item.quantity || 0)).toFixed(2)}</td>
+                                </tr>
+                              `;
+                            }).join('');
+                          })()}
+                        </tbody>
+                        <tfoot>
+                          <tr>
+                            <td colspan="3" class="text-end"><strong>Total:</strong></td>
+                            <td><strong>$${data.totalAmount || 0}</strong></td>
+                          </tr>
+                        </tfoot>
+                      </table>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            `;
+
+            // Remove any existing modal
+            const existingModal = document.getElementById('orderDetailsModal');
+            if (existingModal) {
+              existingModal.remove();
+            }
+
+            // Add new modal to the document
+            document.body.insertAdjacentHTML('beforeend', modalHtml);
+
+            // Initialize and show the modal
+            const modalElement = document.getElementById('orderDetailsModal');
+            const modal = new bootstrap.Modal(modalElement);
+            modal.show();
+
+            // Clean up modal when it's hidden
+            modalElement.addEventListener('hidden.bs.modal', function () {
+              this.remove();
+            });
+
+          } catch (error) {
+            console.error('Error:', error);
+            alert('Error fetching order details. Please try again.');
+          }
+        });
+      });
+
+      // Add status update handler
+      document.querySelectorAll('.status-select').forEach(select => {
+        select.addEventListener('change', async function(e) {
+          const orderId = this.getAttribute('data-orderId');
+          const newStatus = this.value;
+          
+          try {
+            const response = await fetch(`/api/order/${orderId}/status`, {
+              method: 'PUT',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ status: newStatus })
+            });
+            
+            if (!response.ok) {
+              throw new Error('Failed to update status');
+            }
+            
+            // Update the badge in the modal if it's open
+            const modal = document.getElementById('orderDetailsModal');
+            if (modal) {
+              const statusBadge = modal.querySelector('.badge');
+              if (statusBadge) {
+                statusBadge.textContent = newStatus;
+                statusBadge.className = `badge ${newStatus === 'delivered' ? 'bg-success' : newStatus === 'shipped' ? 'bg-info' : 'bg-warning'}`;
+              }
+            }
+            
+          } catch (error) {
+            console.error('Error:', error);
+            alert('Error updating order status. Please try again.');
+            // Reset the select to its previous value
+            this.value = this.getAttribute('data-original-value');
+          }
+        });
+      });
+
+      // Store original value when focus
+      document.querySelectorAll('.status-select').forEach(select => {
+        select.addEventListener('focus', function() {
+          this.setAttribute('data-original-value', this.value);
+        });
+      });
+    </script>
+
+    <script>
+      // Edit User Functionality
+      document.querySelectorAll('.edit-user').forEach(button => {
+        button.addEventListener('click', async function(e) {
+          e.preventDefault();
+          const userId = this.getAttribute('data-userId');
+          
+          try {
+            // Fetch user data
+            const response = await fetch(`/api/user/${userId}`);
+            if (!response.ok) {
+              throw new Error('Failed to fetch user data');
+            }
+            
+            const userData = await response.json();
+            
+            // Populate the edit form
+            document.getElementById('editUserId').value = userId;
+            document.getElementById('editUserName').value = userData.name;
+            document.getElementById('editUserEmail').value = userData.email;
+            document.getElementById('editUserRole').value = userData.role;
+            
+            // Show the modal
+            const editUserModal = new bootstrap.Modal(document.getElementById('editUserModal'));
+            editUserModal.show();
+            
+          } catch (error) {
+            console.error('Error:', error);
+            alert('Error fetching user data. Please try again.');
+          }
+        });
+      });
+
+      // Handle edit user form submission
+      document.getElementById('editUserForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const userId = document.getElementById('editUserId').value;
+        const formData = new FormData(this);
+        const userData = {
+          name: formData.get('name'),
+          email: formData.get('email'),
+          role: formData.get('role')
+        };
+
+        try {
+          const response = await fetch(`/api/user/${userId}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(userData)
+          });
+
+          if (!response.ok) {
+            throw new Error('Failed to update user');
+          }
+
+          alert('User updated successfully');
+          location.reload();
+        } catch (error) {
+          console.error('Error:', error);
+          alert('Error updating user. Please try again.');
+        }
+      });
+
+      // Edit Perfume Functionality
+      document.querySelectorAll('.edit-perfume').forEach(button => {
+        button.addEventListener('click', async function(e) {
+          e.preventDefault();
+          const perfumeId = this.getAttribute('data-perfumeId');
+          
+          try {
+            // Fetch perfume data
+            const response = await fetch(`/api/perfume/${perfumeId}`);
+            if (!response.ok) {
+              throw new Error('Failed to fetch perfume data');
+            }
+            
+            const perfumeData = await response.json();
+            
+            // Populate the edit form
+            document.getElementById('editPerfumeId').value = perfumeId;
+            document.getElementById('editPerfumeName').value = perfumeData.name || '';
+            document.getElementById('editPerfumeBrand').value = perfumeData.brand || '';
+            document.getElementById('editPerfumePrice').value = perfumeData.price || '';
+            document.getElementById('editPerfumeStock').value = perfumeData.stock || '';
+            document.getElementById('editPerfumeDescription').value = perfumeData.description || '';
+            document.getElementById('editPerfumeCategory').value = perfumeData.category || '';
+            document.getElementById('editPerfumeGender').value = perfumeData.gender || '';
+            document.getElementById('editPerfumeScentCategory').value = perfumeData.scentCategory || '';
+            
+            // Show the modal
+            const editPerfumeModal = new bootstrap.Modal(document.getElementById('editPerfumeModal'));
+            editPerfumeModal.show();
+            
+          } catch (error) {
+            console.error('Error:', error);
+            alert('Error fetching perfume data. Please try again.');
+          }
+        });
+      });
+
+      // Handle edit perfume form submission
+      document.getElementById('editPerfumeForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const perfumeId = document.getElementById('editPerfumeId').value;
+        const formData = new FormData(this);
+
+        try {
+          const response = await fetch(`/api/perfume/${perfumeId}`, {
+            method: 'PUT',
+            body: formData
+          });
+
+          if (!response.ok) {
+            throw new Error('Failed to update perfume');
+          }
+
+          alert('Perfume updated successfully');
+          location.reload();
+        } catch (error) {
+          console.error('Error:', error);
+          alert('Error updating perfume. Please try again.');
+        }
+      });
+    </script>
+  </body>
+</html>
